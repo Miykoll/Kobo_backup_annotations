@@ -174,6 +174,8 @@ class Item(object):
         self.booktitle = values[6]
         self.title = values[7]
         self.author = values[8]
+        self.contentid = values[9]
+        self.chapterprogress = values[10]
         self.kind = self.BOOKMARK
         if (self.text is not None) and (self.text != "") and (self.annotation is not None) and (self.annotation != ""):
             self.kind = self.ANNOTATION
@@ -184,7 +186,7 @@ class Item(object):
         """
         Return a tuple representing this Item, for CSV-output purposes.
         """
-        return (self.kind, self.title, self.author, self.datecreated, self.datemodified, self.annotation, self.text)
+        return (self.kind, self.title, self.author, self.datecreated, self.datemodified, self.annotation, self.text, self.contentid, self.chapterprogress)
 
     def kindle_my_clippings(self):
         """
@@ -349,7 +351,9 @@ class ExportKobo(CommandLineTool):
         "Bookmark.DateModified, "
         "content.BookTitle, "
         "content.Title, "
-        "content.Attribution "
+        "content.Attribution, "
+        "Bookmark.ContentID, "
+        "Bookmark.ChapterProgress "
         "FROM Bookmark INNER JOIN content "
         "ON Bookmark.VolumeID = content.ContentID;"
     )
